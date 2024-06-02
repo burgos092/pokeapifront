@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Pokémon</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .pokemon-card {
+            margin-bottom: 20px;
+        }
+
+        .pokemon-card .card {
+            background-color: #343a40; /* Color de fondo oscuro para las tarjetas */
+            border: none; /* Eliminar bordes */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .pokemon-card .card-body {
+            padding: 20px;
+            color: #f8f9fa; /* Color de texto claro */
+        }
+
+        .pokemon-card .card-title {
+            color: #f8f9fa; /* Color de texto claro para los títulos */
+        }
+
+        .pokemon-card .card-text {
+            color: #adb5bd; /* Color de texto ligeramente más oscuro para el texto secundario */
+        }
+
+        .pokemon-card .btn-primary {
+            background-color: #6c757d; /* Color de fondo oscuro para los botones */
+            border-color: #6c757d;
+        }
+
+        .pokemon-card .btn-secondary,
+        .pokemon-card .btn-danger {
+             background-color: #495057; /* Color de fondo oscuro para los botones secundarios y de eliminar */
+             border-color: #495057;
+        }
+
+
+
+        .pokemon-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px 10px 0 0; /* Bordes redondeados solo en la parte superior */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <input type="text" id="search" class="form-control me-2" placeholder="Buscar Pokémon">
+            <input type="text" id="filter-move" class="form-control me-2" placeholder="Filtrar por Movimiento">
+            <input type="text" id="filter-type" class="form-control me-2" placeholder="Filtrar por Tipo">
+            <button class="btn btn-outline-primary btn-sm rounded-pill me-2" onclick="sortAZ()">A-Z</button>
+            <button class="btn btn-outline-primary btn-sm rounded-pill me-2" onclick="sortZA()">Z-A</button>
+            <button class="btn btn-outline-primary btn-sm rounded-pill me-2" onclick="sortById()">ID Asc</button>
+            <button class="btn btn-outline-primary btn-sm rounded-pill me-2" onclick="sortByIdDesc()">ID Desc</button>
+            <button class="btn btn-primary btn-sm rounded-pill" onclick="openAddPokemonForm()">Agregar Pokémon</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" id="pokemon-gallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="pokemonFormModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-5">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pokemonFormTitle">Agregar/Editar Pokémon</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="pokemonForm">
+                        <div class="form-group">
+                            <label for="pokemon-name">Nombre</label>
+                            <input type="text" class="form-control rounded-pill" id="pokemon-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-id">ID</label>
+                            <input type="number" class="form-control rounded-pill" id="pokemon-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-image">URL de la Imagen</label>
+                            <input type="url" class="form-control rounded-pill" id="pokemon-image" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-types">Tipos</label>
+                            <select multiple class="form-control rounded-pill text-center" id="pokemon-types"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-moves">Movimientos</label>
+                            <select multiple class="form-control rounded-pill text-center" id="pokemon-moves"></select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block rounded-pill">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="recursos/js/funcionalidad.js"></script>
+</body>
+
+</html>

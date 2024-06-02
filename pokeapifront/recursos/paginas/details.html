@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .pokemon-details-card {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #343a40; /* Fondo oscuro para la tarjeta */
+            color: #f8f9fa; /* Texto claro para un buen contraste */
+        }
+
+        .pokemon-details div {
+            text-align: center;
+        }
+        
+        
+        
+
+        .pokemon-details {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pokemon-details div {
+            text-align: center;
+        }
+
+        .list-group-item {
+            border-radius: 10px;
+            background-color: #495057; /* Fondo oscuro para los elementos de la lista */
+            color: #f8f9fa; /* Texto claro para un buen contraste */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="pokemon-details-card card">
+            <img src="" class="card-img-top pokemon-image" id="pokemon-image" alt="Pokémon Image">
+            <div class="card-body">
+                <h2 class="card-title text-center" id="pokemon-name"></h2>
+                <p class="card-text text-center">ID: <span id="pokemon-id"></span></p>
+                <div class="pokemon-details">
+                    <div>
+                        <h5>Types</h5>
+                        <ul class="list-group list-group-flush" id="pokemon-types"></ul>
+                    </div>
+                    <div>
+                        <h5>Moves</h5>
+                        <ul class="list-group list-group-flush" id="pokemon-moves"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pokemonImage = document.getElementById('pokemon-image');
+            const pokemonName = document.getElementById('pokemon-name');
+            const pokemonId = document.getElementById('pokemon-id');
+            const pokemonTypes = document.getElementById('pokemon-types');
+            const pokemonMoves = document.getElementById('pokemon-moves');
+            const urlParams = new URLSearchParams(window.location.search);
+            const pokemonIdParam = urlParams.get('id');
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIdParam}`)
+                .then(response => response.json())
+                .then(pokemon => {
+                    pokemonImage.src = pokemon.sprites.front_default;
+                    pokemonName.textContent = pokemon.name;
+                    pokemonId.textContent = pokemon.id;
+
+                    pokemon.types.forEach(typeInfo => {
+                        const typeItem = document.createElement('li');
+                        typeItem.className = 'list-group-item';
+                        typeItem.textContent = typeInfo.type.name;
+                        pokemonTypes.appendChild(typeItem);
+                    });
+
+                    pokemon.moves.slice(0, 5).forEach(moveInfo => {
+                        const moveItem = document.createElement('li');
+                        moveItem.className = 'list-group-item';
+                        moveItem.textContent = moveInfo.move.name;
+                        pokemonMoves.appendChild(moveItem);
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>
